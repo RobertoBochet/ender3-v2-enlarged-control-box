@@ -1,19 +1,19 @@
+$fs=0.4;
+
 use <box.scad>;
 use <mount.scad>;
 
-module mobo()
+difference()
 {
-    translate([20, 67, 0]) mount();
-    translate([3, 32, 0]) mount();
-    translate([34, 30, 0]) mount();
-    translate([82, 67, 0]) mount();
-    translate([97, 3, 0]) mount();
+    box();
 
-    #translate([0,0,8]) square([100,70]);
-    #translate([97,0,10]) square([3,70]);
-};
+    translate([60,18,20]) cube([3, 44, 30]);
+    translate([46,2,-0.5]) cube([15, 5, 3]);
+    translate([0,1,10]) cube([15,3,10], center=true);
+}
 
-
-box();
-translate([-50,10,0])
+translate([55,80,2])
+rotate([0,0,180])
 mobo();
+
+translate([-25,123,11]) mirror([0,1,0]) relay();

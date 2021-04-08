@@ -1,19 +1,20 @@
+$fs=0.4;
+
 use <box.scad>;
 use <mount.scad>;
 
-module raspberry()
+difference()
 {
-    translate([3.5,3.5,0]) mount();
-    translate([3.5,52.5,0]) mount();
-    translate([61.5,3.5,0]) mount();
-    translate([61.5,52.5,0]) mount();
+    box();
 
-    #translate([0,0,8]) square([85, 56]);
-    #translate([82,0,10]) square([3, 56]);
-}
+    translate([-45,-0.5,36]) cube([20,3,5]);
+    translate([0,1,10]) cube([15,3,10], center=true);
+};
 
-box();
-
-translate([50, 65, 0])
+translate([50, 65, 2])
 rotate([0,0,180])
 raspberry();
+
+translate([-50,75,2]) step_down();
+
+translate([-25,123,11]) mirror([0,1,0]) relay();

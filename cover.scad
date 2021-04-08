@@ -1,7 +1,9 @@
 thick = 2;
 base = [125, 105 + 20];
 mount_hole_diameter = 4;
-fan_hole_diameter = 6;
+fan_hole_diameter = 5;
+
+$fs=0.4;
 
 module fan()
 {
@@ -10,7 +12,7 @@ module fan()
     translate([25,-25,0]) circle(d=fan_hole_diameter);
     translate([-25,25,0]) circle(d=fan_hole_diameter);
     translate([-25,-25,0]) circle(d=fan_hole_diameter);
-};
+}
 
 linear_extrude(height=thick)
 difference()
@@ -22,4 +24,4 @@ difference()
     translate([base.x/2 - thick - 10 ,10 + 80]) circle(d=mount_hole_diameter);
     translate([-base.x/2 + thick + 10 ,10 + 80]) circle(d=mount_hole_diameter);
     translate([0, 50,0]) fan();
-};
+}

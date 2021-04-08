@@ -15,6 +15,6 @@ translate([50, 65, 2])
 rotate([0,0,180])
 raspberry();
 
-translate([-50,75,2]) step_down();
+translate([-50,72,2]) step_down();
 
-translate([-25,123,11]) mirror([0,1,0]) relay();
+translate([-25,121,11]) mirror([0,1,0]) relay();

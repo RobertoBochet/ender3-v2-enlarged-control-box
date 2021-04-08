@@ -1,4 +1,4 @@
-base = [125, 105];
+base = [125, 105] - [0, 2];
 thick = 2;
 height = 40;
 support_height = 12;

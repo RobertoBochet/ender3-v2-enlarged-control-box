@@ -16,4 +16,4 @@ translate([55,80,2])
 rotate([0,0,180])
 mobo();
 
-translate([-25,123,11]) mirror([0,1,0]) relay();
+translate([-25,121,11]) mirror([0,1,0]) relay();

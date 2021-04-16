@@ -1,27 +1,38 @@
-thick = 2;
-base = [125, 105 + 20];
-mount_hole_diameter = 4;
-fan_hole_diameter = 5;
-
-$fs=0.4;
+include <config.scad>;
 
 module fan()
 {
-    circle(d=55);
-    translate([25,25,0]) circle(d=fan_hole_diameter);
-    translate([25,-25,0]) circle(d=fan_hole_diameter);
-    translate([-25,25,0]) circle(d=fan_hole_diameter);
-    translate([-25,-25,0]) circle(d=fan_hole_diameter);
+    circle(d=fan_hole_diameter);
+    translate([fan_screw_distance/2,fan_screw_distance/2,0]) circle(d=fan_screw_diameter);
+    translate([fan_screw_distance/2,-fan_screw_distance/2,0]) circle(d=fan_screw_diameter);
+    translate([-fan_screw_distance/2,fan_screw_distance/2,0]) circle(d=fan_screw_diameter);
+    translate([-fan_screw_distance/2,-fan_screw_distance/2,0]) circle(d=fan_screw_diameter);
 }
 
-linear_extrude(height=thick)
-difference()
+module half_cover()
 {
-    translate([-base.x/2, -thick, 0])
-    offset(r=-thick-0.5) square(base);
-    translate([base.x/2 - thick - 10 ,10]) circle(d=mount_hole_diameter);
-    translate([-base.x/2 + thick + 10 ,10]) circle(d=mount_hole_diameter);
-    translate([base.x/2 - thick - 10 ,10 + 80]) circle(d=mount_hole_diameter);
-    translate([-base.x/2 + thick + 10 ,10 + 80]) circle(d=mount_hole_diameter);
-    translate([0, 50,0]) fan();
+    linear_extrude(height=cover_size.z)
+    difference()
+    {
+        echo(cover_base_half.y);
+	    translate([0, box_thickness - cover_tollerance.y, 0]) square(cover_base_half);
+        translate([box_base_half.x - support_radius - box_thickness, support_radius + box_thickness, 0]) circle(d=support_screw_diameter);
+        translate([box_base_half.x - support_radius - box_thickness, support_radius + box_thickness + 80, 0]) circle(d=support_screw_diameter);
+
+        translate([0, 50,0]) fan();
+    }
+
 }
+
+module cover()
+{
+    half_cover();
+    mirror([1, 0, 0]) half_cover();
+}
+
+cover();
+
+
+// insert box for debug, it will not be rendered
+use <box.scad>;
+% translate([0,0, -box_size.z + cover_size.z]) box();

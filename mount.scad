@@ -1,4 +1,4 @@
-module mount(size=8, height=7, hole_depth=7, hole_diameter=4)
+module mount(size=8, height=7, hole_depth=7, hole_diameter=4.5)
 {
     difference()
     {
@@ -9,10 +9,10 @@ module mount(size=8, height=7, hole_depth=7, hole_diameter=4)
 
 module mobo()
 {
-    translate([20, 67, 0]) mount();
-    translate([3, 32, 0]) mount();
-    translate([34, 30, 0]) mount();
-    translate([82, 67, 0]) mount();
+    translate([20, 67.5, 0]) mount();
+    translate([2, 32.5, 0]) mount();
+    translate([34, 29.5, 0]) mount();
+    translate([82, 67.5, 0]) mount();
     translate([97, 3, 0]) mount();
 
     #translate([0,0,8]) square([100,70]);

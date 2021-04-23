@@ -28,3 +28,12 @@ In order to assemble the box you have to print:
 - `screw M3 medium`x8 (for the t-nuts)
 - `threaded insert M3`x25 (8 for the covers and 17 for the electrical components)
 - `screw M3 short`x25 (8 for the covers and 17 for the electrical components)
+
+### Other components (optional)
+
+- `Raspberry pi 3 model B`
+- `module relais`x2 commercial module for 5V support at most 10A, so we need two of it
+- `step-down`x2 for the raspberry and the relays
+- `nMOSFET` to amplify the raspberry 3.3V signal to 5V (e.g. [IRL520](https://www.vishay.com/docs/91017/91017.pdf))
+- `resitors` to make the amplifier
+- `some wires` (some usb and DIY wires)

@@ -1,5 +1,3 @@
-$fs=0.4;
-
 use <box.scad>;
 use <mount.scad>;
 
@@ -11,10 +9,11 @@ difference()
     translate([0,1,10]) cube([15,3,10], center=true);
 };
 
-translate([50, 65, 2])
+translate([56, 62, 2])
 rotate([0,0,180])
-raspberry();
+    raspberry();
 
-translate([-50,72,2]) step_down();
+translate([-50,75,2]) step_down();
+translate([6,75,2]) step_down();
 
 translate([-25,121,11]) mirror([0,1,0]) relay();

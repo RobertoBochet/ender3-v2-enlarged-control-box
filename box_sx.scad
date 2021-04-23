@@ -1,5 +1,3 @@
-$fs=0.4;
-
 use <box.scad>;
 use <mount.scad>;
 
@@ -14,6 +12,6 @@ difference()
 
 translate([55,80,2])
 rotate([0,0,180])
-mobo();
+    mobo();
 
 translate([-25,121,11]) mirror([0,1,0]) relay();

@@ -1,87 +1,85 @@
-base = [125, 105] - [0, 2];
-thick = 2;
-height = 40;
-support_height = 12;
-support_hole_depth = 7;
-support_hole_diameter = 4;
-mount_hole_diameter = 4;
+include <config.scad>;
+
+box_footprint = [box_size.x, box_size.y - box_cantilever_lenght];
+box_footprint_half = [0.5*box_footprint.x, 1*box_footprint.y];
+box_size_half = [0.5*box_size.x, 1*box_size.y, box_size.z];
 
 module halfbox()
 {
-	hbase = [base.x/2, base.y];
+	cube([box_footprint_half.x, box_footprint_half.y, box_thickness]);
 
-	cube([hbase.x, hbase.y, thick]);
-
-	let(z=thick)
+	let(z=box_thickness)
 	{
-		translate([0,0,z])
+		translate([0, 0, z])
 		linear_extrude(height=9-z)
 		difference()
 		{
-			square(hbase);
-			translate([0,thick,0])
-				square(hbase - [thick,2*thick]);
+			square(box_footprint_half);
+
+			translate([0, box_thickness, 0])
+			square(box_footprint_half - [box_thickness, 2*box_thickness]);
 		}
 	}
 
 	let(z=9)
 	{
-		translate([0,0,z])
-		linear_extrude(height=thick)
+		translate([0, 0, z])
+		linear_extrude(height=box_thickness)
 		difference() {
-			square([hbase.x, hbase.y + 20]);
-			translate([0, thick, 0]) square(hbase - [thick,2*thick]);
-			translate([40, hbase.y + 10, 0]) circle(d=mount_hole_diameter);
+			square([box_size_half.x, box_size_half.y]);
+
+			translate([0, box_thickness, 0]) square(box_footprint_half - [box_thickness, 2*box_thickness]);
+			translate([40, box_footprint_half.y + 10, 0]) circle(d=mount_hole_diameter);
 		}
 	}
 
 	let(z=11)
 	{
-		translate([0,0,z])
+		translate([0, 0, z])
 		difference()
 		{
-			linear_extrude(height=height-z)
+			linear_extrude(height=box_size.z - z)
 			difference() {
-				square([hbase.x, hbase.y + 20]);
-				translate([0, thick, 0]) square(hbase - [thick,thick - 20]);
+				square([box_size_half.x, box_size_half.y]);
+				translate([0, box_thickness, 0]) square(box_size_half - [box_thickness, box_thickness]);
 			}
 
-			translate([35,-0.1,height-z -10])
+			translate([35, -0.1, box_size.z - z - 10])
 			rotate([-90,0,0])
-			linear_extrude(height=thick+0.2)
-			circle(d=mount_hole_diameter);
+			linear_extrude(height=box_thickness + 0.2)
+				circle(d=mount_hole_diameter);
 		}
 	}
 
 	
-	let(z=height - thick - support_height, r=5)
+	let(z=box_size.z - box_thickness - support_height)
 	{
-		translate([hbase.x - r - thick,r + thick,z])
+		translate([box_footprint_half.x - support_radius - box_thickness, support_radius + box_thickness, z])
 		difference()
 		{
 			linear_extrude(height=support_height)
 			hull()
 			{
-				polygon([[-r,-r], [r, -r], [r,r]]);
-				circle(r=r);
+				polygon([[-support_radius, -support_radius], [support_radius, -support_radius], [support_radius, support_radius]]);
+				circle(r=support_radius);
 			}
 
-			translate([0,0,support_height - support_hole_diameter])
+			translate([0, 0, support_height - support_hole_diameter])
 			linear_extrude(height=support_hole_depth)
 			circle(d=support_hole_diameter);
 		}
 
-		translate([hbase.x - r - thick,r + thick + 80,z])
+		translate([box_footprint_half.x - support_radius - box_thickness, support_radius + box_thickness + 80, z])
 		difference()
 		{
 			linear_extrude(height=support_height)
 			hull()
 			{
-				polygon([[r,-r], [0, 0], [r,r]]);
-				circle(r=r);
+				polygon([[support_radius, -support_radius], [0, 0], [support_radius, support_radius]]);
+				circle(r=support_radius);
 			}
 
-			translate([0,0,support_height - support_hole_diameter])
+			translate([0, 0, support_height - support_hole_diameter])
 			linear_extrude(height=support_hole_depth)
 			circle(d=support_hole_diameter);
 		}
